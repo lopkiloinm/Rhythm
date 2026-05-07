@@ -1,3 +1,9 @@
+
+
+https://github.com/user-attachments/assets/5566f807-c7fd-4421-8d40-de0355beb48f
+
+
+
 # Rhythm
 
 **Agentic Verification and Incentive Infrastructure for Activities of Daily Living**

@@ -57,7 +57,9 @@ import boto3
 
 MODEL_ID = 'us.amazon.nova-2-lite-v1:0'
 REGION = os.environ.get('AWS_DEFAULT_REGION', 'us-east-1')
-PORT = 3001
+# When running behind the x402 gateway, run this server on a different port.
+# Default stays 3001 for backwards compatibility.
+PORT = int(os.environ.get('RHYTHM_VERIFY_PORT', os.environ.get('PORT', '3001')))
 
 # Encoding targets. Upload is what Nova gets, not what the user sees.
 TARGET_FPS = 15

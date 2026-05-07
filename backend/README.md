@@ -108,3 +108,36 @@ Nova 2 Lite is automatically enabled on first invocation — no manual model acc
 - Memory: 512MB (base64 decode of 30s video ~15MB)
 - Video stored in S3 for audit trail — add lifecycle policy to expire after 90 days
 - Use `global.amazon.nova-2-lite-v1:0` for cross-region inference if us-east-1 is throttled
+
+## Local x402 Gateway (paid `POST /verify`)
+
+If you want to gate the local verifier behind x402, run **two processes**:
+
+- **Upstream verifier** (your existing Bedrock/Nova server) on port **3002**
+- **x402 gateway** (paid endpoint) on port **3001**
+
+### 1) Install gateway deps (Node)
+
+```bash
+cd backend
+cd x402-gateway
+npm install
+```
+
+### 2) Start the upstream verifier (unpaid, internal)
+
+```bash
+RHYTHM_VERIFY_PORT=3002 python3 local_server.py
+```
+
+### 3) Start the paid gateway (x402)
+
+Set your receiving EVM address (and optional price):
+
+```bash
+export X402_PAY_TO_EVM=0xYourEvmAddress
+export X402_PRICE=$0.001
+npm start
+```
+
+The app should continue calling `http://<LAN_IP>:3001/verify` as before, but now it will receive an `HTTP 402` challenge until it supplies `PAYMENT-SIGNATURE`.

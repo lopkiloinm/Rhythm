@@ -143,6 +143,30 @@ The app will typically auto-detect the host and call `http://<host>:3001/verify`
 
 Note: the local verifier uses `ffmpeg` for optional video compression; install it if you see compression-related errors.
 
+### x402-gated local verification (paid `POST /verify`)
+
+To gate `POST /verify` behind x402 while still using the local Python verifier:
+
+- Run the **Python verifier** on **3002**
+- Run the **x402 gateway** on **3001** (this is the endpoint the app calls)
+
+```bash
+# Terminal A: upstream verifier (unpaid, internal)
+cd Rhythm
+RHYTHM_VERIFY_PORT=3002 python3 backend/local_server.py
+```
+
+```bash
+# Terminal B: x402 gateway (paid)
+cd Rhythm/backend/x402-gateway
+npm install
+export X402_PAY_TO_EVM=0xYourEvmAddress
+export X402_PRICE=$0.001
+npm start
+```
+
+See `backend/README.md` for details.
+
 For AWS deployment instructions, see `backend/README.md`.
 
 ## Status

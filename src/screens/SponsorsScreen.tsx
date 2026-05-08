@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, ScrollView, Image, Linking, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, Image, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { BackHeader, Card, Button } from '../components';
 import { colors, typography, spacing, shadows } from '../theme';
+import { openExternalUrl } from '../utils/link';
 
 const HERO_URI =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuC9zEPTKcVJktM00V02DhGpNov8zNAlUdnWCiBSwWv6viOrN1ftMIpiiHUt6uoSvJB8ARylod0Iqye8NopIpTbryw5qXYqtLmb4nCV0esUCD4FC8HpGRVg5OGCazrNOeHtbCd-offfKYyWb9huexzb40_fiPYyXT7XhHQKxPBgcsrpQe5N3e6J9Vztoho15Sm01GUIEPDcq6VfjfHM5Sauu7bxRjfb2N1E1c4YnAwNs0kceBuyIzdaJXJnPQg-u3-0PG4801lmIjnVs';
@@ -103,7 +104,7 @@ export function SponsorsScreen() {
               <Button
                 label="Visit Sponsor"
                 variant="secondary"
-                onPress={() => Linking.openURL('https://example.com/ecolife-naturals')}
+                onPress={() => openExternalUrl('https://example.com/ecolife-naturals')}
                 icon={<MaterialIcons name="open-in-new" size={18} color={colors.primary} />}
                 style={styles.visitBtn}
               />

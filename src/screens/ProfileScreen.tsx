@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, Image, Pressable, Linking, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, Image, Pressable, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSafeWallet } from '../services/wallet';
@@ -12,6 +12,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
 import { SOLANA_EXPLORER_CLUSTER_PARAM } from '../config/solana';
 import { ROUTINES } from '../data/routines';
+import { openExternalUrl } from '../utils/link';
 
 const AVATAR_URI =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuB4Wp9jo7afnvOrefyamvjTEJvxS9f_stKJRdSbratM6o2_bgcLViDjREsBei4gcRQygRTvH3cDhB-AFJkzWpJsxoPwjMwLdEg5bHb2irRoA333SwBfCX7EljI-goFpQiQSv2H1P28DbyaKO9UCUA3IGRQXZndTBfftH1Z4hUOejN4eltV6q8bdhtNjxA_ZO-D3gBLv2vl4v5_yvU1HdtD2EX8PAXQGU8G2t1XBNTre2jImRztpMELHhBrAfs-yKKdw48cst8KIt1Gq';
@@ -81,7 +82,7 @@ export function ProfileScreen() {
 
   const openWalletExplorer = () => {
     if (!walletAddress) return;
-    Linking.openURL(
+    openExternalUrl(
       `https://explorer.solana.com/address/${walletAddress}?cluster=${SOLANA_EXPLORER_CLUSTER_PARAM}`
     );
   };

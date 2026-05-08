@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, Linking, Pressable, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, ScrollView, Pressable, StyleSheet, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useRoute, RouteProp } from '@react-navigation/native';
@@ -9,6 +9,7 @@ import { formatCompletionTime } from '../utils/time';
 import { colors, typography, spacing, shadows } from '../theme';
 import type { RootStackParamList } from '../navigation/types';
 import { SOLANA_EXPLORER_CLUSTER_PARAM } from '../config/solana';
+import { openExternalUrl } from '../utils/link';
 
 export function CompletionDetailScreen() {
   const route = useRoute<RouteProp<RootStackParamList, 'CompletionDetail'>>();
@@ -88,7 +89,7 @@ export function CompletionDetailScreen() {
               <View style={styles.divider} />
               <Pressable
                 onPress={() =>
-                  Linking.openURL(
+                  openExternalUrl(
                     `https://explorer.solana.com/tx/${completion.txSignature}?cluster=${SOLANA_EXPLORER_CLUSTER_PARAM}`,
                   )
                 }

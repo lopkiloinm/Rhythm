@@ -142,19 +142,23 @@ export function RoutinesScreen() {
     );
   }, [normalizedQuery]);
 
+  const navigatingRef = React.useRef(false);
   const goToRoutine = (routine: RoutineData) => {
+    if (navigatingRef.current) return;
+    navigatingRef.current = true;
     navigation.navigate('RoutineDetail', { routine });
+    setTimeout(() => { navigatingRef.current = false; }, 600);
   };
 
   const handleToggleFavorite = (routineId: string) => {
-    Haptics.selectionAsync();
+    Haptics.selectionAsync().catch(() => {});
     toggleFavoriteRoutine(routineId);
   };
 
   const selectFilter = (nextFilter: FilterValue) => {
     if (filter === nextFilter) return;
     setFilter(nextFilter);
-    Haptics.selectionAsync();
+    Haptics.selectionAsync().catch(() => {});
   };
 
   const handleFilterPress = (option: FilterOption) => {

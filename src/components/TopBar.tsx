@@ -15,13 +15,13 @@ const AVATAR_URI =
 
 export function TopBar({ title = 'Rhythm', onAvatarPress, onSettingsPress }: Props) {
   const handleSettingsPress = () => {
-    Haptics.selectionAsync();
+    Haptics.selectionAsync().catch(() => {});
     onSettingsPress?.();
   };
 
   const handleAvatarPress = () => {
     if (onAvatarPress) {
-      Haptics.selectionAsync();
+      Haptics.selectionAsync().catch(() => {});
       onAvatarPress();
     }
   };

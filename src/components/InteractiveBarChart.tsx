@@ -106,7 +106,7 @@ export function InteractiveBarChart({
     if (idx !== lastIndexRef.current) {
       lastIndexRef.current = idx;
       setSelectedIndex(idx);
-      Haptics.selectionAsync();
+      Haptics.selectionAsync().catch(() => {});
     }
   };
 

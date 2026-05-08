@@ -44,6 +44,12 @@ export function HistoryScreen() {
             <Text style={[typography.bodyMd, { color: colors.onSurfaceVariant, textAlign: 'center' }]}>
               Complete your first routine to start building your history.
             </Text>
+            <Button
+              label="Browse Routines"
+              onPress={() => navigation.navigate('Main', { screen: 'Routines' })}
+              icon={<MaterialIcons name="event-repeat" size={18} color={colors.onPrimary} />}
+              style={{ marginTop: spacing.stackSm }}
+            />
           </View>
         ) : (
           <>

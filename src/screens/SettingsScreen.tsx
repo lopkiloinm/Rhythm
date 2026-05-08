@@ -73,18 +73,22 @@ export function SettingsScreen() {
   }, []);
 
   const handleDemoModeChange = (value: boolean) => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
     setDemoMode(value);
-    saveSettings({ demoMode: value });
+    saveSettings({ demoMode: value }).catch(() => {
+      // Revert local state on persist failure so UI stays in sync.
+      setDemoMode(!value);
+      Alert.alert('Could not save settings', 'Please try again.');
+    });
   };
 
   const handleVideoThumbnailsChange = (value: boolean) => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
     setShowVideoThumbnails(value);
   };
 
   const handleToggle = (setter: (v: boolean) => void) => (value: boolean) => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
     setter(value);
   };
 
@@ -127,7 +131,7 @@ export function SettingsScreen() {
               <View style={styles.goalStepper}>
                 <Pressable
                   onPress={() => {
-                    Haptics.selectionAsync();
+                    Haptics.selectionAsync().catch(() => {});
                     setDailyGoal(dailyGoal - 1);
                   }}
                   style={[styles.stepperBtn, dailyGoal <= 1 && styles.stepperBtnDisabled]}
@@ -147,7 +151,7 @@ export function SettingsScreen() {
                 </Text>
                 <Pressable
                   onPress={() => {
-                    Haptics.selectionAsync();
+                    Haptics.selectionAsync().catch(() => {});
                     setDailyGoal(dailyGoal + 1);
                   }}
                   style={[styles.stepperBtn, dailyGoal >= 14 && styles.stepperBtnDisabled]}
@@ -282,13 +286,20 @@ export function SettingsScreen() {
                       text: 'Clear Everything',
                       style: 'destructive',
                       onPress: () => {
-                        clearAllData();
-                        navigation.dispatch(
-                          CommonActions.reset({
-                            index: 0,
-                            routes: [{ name: 'Welcome' }],
-                          })
-                        );
+                        try {
+                          clearAllData();
+                          navigation.dispatch(
+                            CommonActions.reset({
+                              index: 0,
+                              routes: [{ name: 'Welcome' }],
+                            })
+                          );
+                        } catch (e) {
+                          Alert.alert(
+                            'Could not clear data',
+                            'Something went wrong. Please try again.',
+                          );
+                        }
                       },
                     },
                   ]

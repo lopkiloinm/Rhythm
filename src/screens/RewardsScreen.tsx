@@ -107,6 +107,12 @@ export function RewardsScreen() {
             <Text style={[typography.bodyMd, { color: colors.onSurfaceVariant, textAlign: 'center' }]}>
               Complete a routine to start earning credits from sponsors.
             </Text>
+            <Button
+              label="Browse Routines"
+              onPress={() => navigation.navigate('Main', { screen: 'Routines' })}
+              icon={<MaterialIcons name="event-repeat" size={18} color={colors.onPrimary} />}
+              style={{ marginTop: spacing.stackSm }}
+            />
           </View>
         ) : (
           <>

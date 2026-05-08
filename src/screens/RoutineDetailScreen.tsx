@@ -34,7 +34,7 @@ export function RoutineDetailScreen() {
   };
 
   const handleToggleFavorite = () => {
-    Haptics.selectionAsync();
+    Haptics.selectionAsync().catch(() => {});
     Animated.sequence([
       Animated.timing(starScale, {
         toValue: 1.25,

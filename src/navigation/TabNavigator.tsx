@@ -67,14 +67,14 @@ export function TabNavigator() {
           activeIndexRef.current = nextIndex;
           gestureStartXRef.current = targetX;
           setActiveIndex(nextIndex);
-          Haptics.selectionAsync();
+          Haptics.selectionAsync().catch(() => {});
         });
       } else {
         activeIndexRef.current = nextIndex;
         gestureStartXRef.current = targetX;
         setActiveIndex(nextIndex);
         translateX.setValue(targetX);
-        Haptics.selectionAsync();
+        Haptics.selectionAsync().catch(() => {});
       }
     },
     [translateX, width]
@@ -125,7 +125,7 @@ export function TabNavigator() {
               activeIndexRef.current = targetIndex;
               gestureStartXRef.current = -targetIndex * width;
               setActiveIndex(targetIndex);
-              Haptics.selectionAsync();
+              Haptics.selectionAsync().catch(() => {});
             });
           } else {
             resetDrag(translateX, -currentIndex * width);
